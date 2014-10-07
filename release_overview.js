@@ -1,3 +1,5 @@
+var tag = "";
+
 $(document).ready(function(){
 	Trello.authorize({
 	    interactive: true,
@@ -15,8 +17,6 @@ $(document).ready(function(){
 	    	console.log( board.name );
 	    }); */
 		$("#connectionstatus").text("Ready");
-
-		findHashtags();
 	}
 
 	function onFailedAuthorization() {
@@ -24,9 +24,23 @@ $(document).ready(function(){
 	}
 });
 
-function findReleaseStories( needle ) {
+function fetchReleaseStories( board, tag ) {
+	this.tag = tag;
+	var promise = new Promise( function( resolve, reject ) {
+		Trello.get("boards/" + board + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
+	});
+
+	promise.then( function( result ) {
+		findReleaseStories( result, this.tag );
+	});
+}
+
+
+function findReleaseStories( lists, needle ) {
 	$('#summary').empty();
 	$('#output').empty();
+
+	needle = needle ? needle : ""; 
 	
 	var re = new RegExp( needle.toLowerCase() );
 	var rePoints = new RegExp( "\{(.*)\}" );
@@ -35,50 +49,55 @@ function findReleaseStories( needle ) {
 	var total = 0;
 	var complete = 0;
 
-	Trello.get("boards/51a7310f77b391ff2300077a/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, function(lists) {
+	$.each( lists, function( ix, list ) {
+		$.each( list.cards, function ( ix2, card ) {
 
-		$.each( lists, function( ix, list ) {
-			$.each( list.cards, function ( ix2, card ) {
+			if ( re.test( card.name.toLowerCase() ) ) {
 
-				if ( re.test( card.name.toLowerCase() ) ) {
+				var status = "amber";
+				if ( reDoneList.test( list.name ) ) {
+					status = "green";
+				} else if ( reSprintList.test( list.name ) ) {
+					status = "red";
+				}
 
-					$("<span>")
-					.attr({id: card.id})
-	                .addClass("card")
-	                .text( '[' + list.name + '] : ' + card.name )
-	                .appendTo('#output');
-
-					var $rag  = $("<span>")
-	                .addClass("rag")
-	                .prependTo('#' + card.id);
-
-	                if ( reDoneList.test( list.name ) ) {
-						$rag.addClass("green");
-					} else if ( reSprintList.test( list.name ) ) {
-						$rag.addClass("red");
-					} else {
-						$rag.addClass("amber");
-					}
-
-	                $("<a>")
-	                .addClass("link")
-	                .attr({href: card.url, target: "trello"})
-	                .text( 'link' )
-	                .appendTo('#' + card.id);
-	           
-		            var matches = rePoints.exec( card.name );
-		            if ( matches && matches.length > 0 ) {
-		            	if ( reDoneList.test( list.name ) ) {
-		            		complete += parseInt( matches[1] );
-		            	}
-		            	total += parseInt( matches[1] );
-		            }     
-	            }
-			});
+				writeCard( list.name, card.id, card.name, card.url, status );
+           
+	            var matches = rePoints.exec( card.name );
+	            if ( matches && matches.length > 0 ) {
+	            	if ( reDoneList.test( list.name ) ) {
+	            		complete += parseInt( matches[1] );
+	            	}
+	            	total += parseInt( matches[1] );
+	            }     
+            }
 		});
-
-		$("<div>")
-		.text("Total: " + total + " Complete: " + complete + " Percentage: " + Math.floor( complete/total * 100 ) + '%')
-		.appendTo('#summary');
     });
+	
+	writeSummary( total, complete );
+};
+
+function writeSummary( total, complete ) {
+	$("<div>")
+	.text("Total: " + total + " Complete: " + complete + " Percentage: " + Math.floor( complete/total * 100 ) + '%')
+	.appendTo('#summary');
+};
+
+function writeCard( listName, cardId, cardName, cardUrl, status ) {
+	$("<span>")
+	.attr({id: cardId})
+    .addClass("card")
+    .text( '[' + listName + '] : ' + cardName )
+    .appendTo('#output');
+
+	$("<span>")
+    .addClass("rag")
+    .addClass(status)
+    .prependTo('#' + cardId);
+
+    $("<a>")
+    .addClass("link")
+    .attr({href: cardUrl, target: "trello"})
+    .text( 'link' )
+    .appendTo('#' + cardId);
 };
