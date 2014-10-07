@@ -1,0 +1,63 @@
+<head>
+  <!-- The client library requires jQuery  -->
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="https://api.trello.com/1/client.js?key=7c7520b9a957776f310aced2c357c578"></script>
+	<link rel="stylesheet" type="text/css" href="release_overview.css">
+
+	<script>
+	$(document).ready(function(){
+		Trello.authorize({
+		    interactive: true,
+		    type: "popup",
+		    expiration: "never",
+		    name: "surveyrequest",
+		    persist: "true",
+		    success: function() { onAuthorizeSuccessful(); },
+		    error: function() { onFailedAuthorization(); },
+		    scope: { read: true, write: true},
+		});
+
+		function onAuthorizeSuccessful() {
+		    /* Trello.boards.get("51a7310f77b391ff2300077a",  function( board) {
+		    	console.log( board.name );
+		    }); */
+			$("#connectionstatus").text("Ready");
+
+		}
+
+		function onFailedAuthorization() {
+		    $("#connectionstatus").text("Authorisation Failed");
+		}
+	});
+
+	function findReleaseStories( needle ) {
+		$('#output').empty();
+		var re = new RegExp( needle.toLowerCase() );
+
+		Trello.get("boards/51a7310f77b391ff2300077a/cards", function(cards) {
+            $.each(cards, function(ix, card) {
+
+            	if ( re.test( card.name.toLowerCase() ) ) {
+	                $("<a>")
+	                //.attr({href: card.url, target: "trello"})
+	                .addClass("card")
+	                .text(card.name)
+	                .appendTo('#output');
+	            }
+            });
+        });
+	};
+	</script>   
+
+</head>
+
+<body>
+	<div id="header">
+		<div id="title">Release overview - <span id="connectionstatus"></span></div>
+		<div id="form">
+			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {findReleaseStories( $('#targetrelease').val() );}"></input>
+			<button onclick="findReleaseStories( $('#targetrelease').val() );">GO</button>
+		<div>
+	</div>
+	<div id="output"></div>
+</body>
