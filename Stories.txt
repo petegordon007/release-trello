@@ -4,5 +4,5 @@ Stories for Release overview report
 [DONE] Enter a release tag, click OK
 [DONE] Call to retrieve all cards from Cloud sprint with Tag and display title as a list
 [DONE] Add in list name of card as status
-Calculate total and done total by points and show percentage done
+[DONE]Calculate total and done total by points and show percentage done
 Calculate total and done total by task hours and show percentage done

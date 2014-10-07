@@ -1,63 +1,13 @@
 <head>
-  <!-- The client library requires jQuery  -->
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+  	 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+     <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+     <link rel="stylesheet" href="/resources/demos/style.css">
+	
 	<script src="https://api.trello.com/1/client.js?key=7c7520b9a957776f310aced2c357c578"></script>
+	
+	<script src="release_overview.js"></script>
 	<link rel="stylesheet" type="text/css" href="release_overview.css">
-
-	<script>
-	$(document).ready(function(){
-		Trello.authorize({
-		    interactive: true,
-		    type: "popup",
-		    expiration: "never",
-		    name: "surveyrequest",
-		    persist: "true",
-		    success: function() { onAuthorizeSuccessful(); },
-		    error: function() { onFailedAuthorization(); },
-		    scope: { read: true, write: true},
-		});
-
-		function onAuthorizeSuccessful() {
-		    /* Trello.boards.get("51a7310f77b391ff2300077a",  function( board) {
-		    	console.log( board.name );
-		    }); */
-			$("#connectionstatus").text("Ready");
-
-		}
-
-		function onFailedAuthorization() {
-		    $("#connectionstatus").text("Authorisation Failed");
-		}
-	});
-
-	function findReleaseStories( needle ) {
-		$('#output').empty();
-		
-		var re = new RegExp( needle.toLowerCase() );
-
-		Trello.get("boards/51a7310f77b391ff2300077a/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, function(lists) {
-
-			$.each( lists, function( ix, list ) {
-				$.each( list.cards, function ( ix2, card ) {
-					if ( re.test( card.name.toLowerCase() ) ) {
-						$("<span>")
-						.attr({id: card.id})
-		                .addClass("card")
-		                .text( '[' + list.name + '] : ' + card.name )
-		                .appendTo('#output');
-
-		                $("<a>")
-		                .addClass("link")
-		                .attr({href: card.url, target: "trello"})
-		                .text( 'link' )
-		                .appendTo('#' + card.id);
-		            }
-				});
-			});
-        });
-	};
-	</script>   
-
 </head>
 
 <body>
@@ -68,5 +18,7 @@
 			<button onclick="findReleaseStories( $('#targetrelease').val() );">GO</button>
 		</div>
 	</div>
+	<div id="summary"></div>
+	<div id="progressbar"></div>
 	<div id="output"></div>
 </body>
