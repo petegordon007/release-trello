@@ -32,19 +32,28 @@
 
 	function findReleaseStories( needle ) {
 		$('#output').empty();
+		
 		var re = new RegExp( needle.toLowerCase() );
 
-		Trello.get("boards/51a7310f77b391ff2300077a/cards", function(cards) {
-            $.each(cards, function(ix, card) {
+		Trello.get("boards/51a7310f77b391ff2300077a/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, function(lists) {
 
-            	if ( re.test( card.name.toLowerCase() ) ) {
-	                $("<a>")
-	                //.attr({href: card.url, target: "trello"})
-	                .addClass("card")
-	                .text(card.name)
-	                .appendTo('#output');
-	            }
-            });
+			$.each( lists, function( ix, list ) {
+				$.each( list.cards, function ( ix2, card ) {
+					if ( re.test( card.name.toLowerCase() ) ) {
+						$("<span>")
+						.attr({id: card.id})
+		                .addClass("card")
+		                .text( '[' + list.name + '] : ' + card.name )
+		                .appendTo('#output');
+
+		                $("<a>")
+		                .addClass("link")
+		                .attr({href: card.url, target: "trello"})
+		                .text( 'link' )
+		                .appendTo('#' + card.id);
+		            }
+				});
+			});
         });
 	};
 	</script>   
@@ -57,7 +66,7 @@
 		<div id="form">
 			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {findReleaseStories( $('#targetrelease').val() );}"></input>
 			<button onclick="findReleaseStories( $('#targetrelease').val() );">GO</button>
-		<div>
+		</div>
 	</div>
 	<div id="output"></div>
 </body>

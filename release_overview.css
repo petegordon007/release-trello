@@ -15,7 +15,6 @@ body {
 #header {
     padding: 4px;
     border-bottom: 1px solid #000;
-    background: #eee;
 }
 
 #title {
@@ -32,7 +31,11 @@ body {
     display:block;
 }
 
-.card { 
-    display: block; 
+.card {
     padding: 2px;
+    display:block;
+}
+
+.link { 
+    padding-left: 5px;
 }
