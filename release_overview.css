@@ -1,6 +1,6 @@
 body {
     font-family: arial;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #loggedout {
@@ -32,9 +32,36 @@ body {
 }
 
 .card {
-    padding: 2px;
+    background:#E6E6E6;
+    border:1px solid darkgrey;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px 5px 5px 0px;
+    margin-top:2px;
+    margin-bottom:2px;
     display:block;
 }
+
+.rag {
+    margin:5px;
+    padding:6px;
+    padding-left:1px;
+    font-weight: bold;
+}
+
+.red {
+    background: red;
+}
+
+.amber {
+    background: goldenrod;
+}
+
+.green {
+    background: green;
+}
+
 
 .link { 
     padding-left: 5px;

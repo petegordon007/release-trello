@@ -16,6 +16,7 @@ $(document).ready(function(){
 	    }); */
 		$("#connectionstatus").text("Ready");
 
+		findHashtags();
 	}
 
 	function onFailedAuthorization() {
@@ -30,6 +31,7 @@ function findReleaseStories( needle ) {
 	var re = new RegExp( needle.toLowerCase() );
 	var rePoints = new RegExp( "\{(.*)\}" );
 	var reDoneList = new RegExp( "Done:" );
+	var reSprintList = new RegExp( "Sprint" );
 	var total = 0;
 	var complete = 0;
 
@@ -37,6 +39,7 @@ function findReleaseStories( needle ) {
 
 		$.each( lists, function( ix, list ) {
 			$.each( list.cards, function ( ix2, card ) {
+
 				if ( re.test( card.name.toLowerCase() ) ) {
 
 					$("<span>")
@@ -44,6 +47,18 @@ function findReleaseStories( needle ) {
 	                .addClass("card")
 	                .text( '[' + list.name + '] : ' + card.name )
 	                .appendTo('#output');
+
+					var $rag  = $("<span>")
+	                .addClass("rag")
+	                .prependTo('#' + card.id);
+
+	                if ( reDoneList.test( list.name ) ) {
+						$rag.addClass("green");
+					} else if ( reSprintList.test( list.name ) ) {
+						$rag.addClass("red");
+					} else {
+						$rag.addClass("amber");
+					}
 
 	                $("<a>")
 	                .addClass("link")
@@ -63,12 +78,7 @@ function findReleaseStories( needle ) {
 		});
 
 		$("<div>")
-		.text("Total: " + total + " Complete: " + complete)
+		.text("Total: " + total + " Complete: " + complete + " Percentage: " + Math.floor( complete/total * 100 ) + '%')
 		.appendTo('#summary');
-
-		$( "#progressbar" ).progressbar({
-			max: total, 
-      		value: complete
-    	});
     });
 };
