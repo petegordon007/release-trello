@@ -1,4 +1,19 @@
 var tag = "";
+function StatusChooser() {
+	var reDoneList = new RegExp( "Done:" );
+	var reSprintList = new RegExp( "Sprint" );
+
+	this.choose = function( listName ) {
+		var status = "amber";
+		if ( reDoneList.test( listName ) ) {
+			status = "green";
+		} else if ( reSprintList.test( listName ) ) {
+			status = "red";
+		}
+		return status;	
+	};
+};
+
 
 $(document).ready(function(){
 	Trello.authorize({
@@ -24,7 +39,20 @@ $(document).ready(function(){
 	}
 });
 
-function fetchReleaseStories( board, tag ) {
+function fetchReleaseStories( boards, tag ) {
+	
+	clearView();
+
+	if ( Array.isArray( boards ) ) {
+		$.each( boards, function( ix, board ) {
+			doTheWorkOfFetchingAndAdding( board, tag );
+		});
+	} else {
+		doTheWorkOfFetchingAndAdding( boards, tag );
+	}
+}
+
+function doTheWorkOfFetchingAndAdding( board, tag ) {
 	this.tag = tag;
 	var promise = new Promise( function( resolve, reject ) {
 		Trello.get("boards/" + board + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
@@ -35,33 +63,31 @@ function fetchReleaseStories( board, tag ) {
 	});
 }
 
-
-function findReleaseStories( lists, needle ) {
+function clearView() {
 	$('#summary').empty();
 	$('#output').empty();
+}
 
+function findReleaseStories( lists, needle ) {
+
+	var chooser = new StatusChooser();
+
+	//Used for finding needle
 	needle = needle ? needle : ""; 
-	
 	var re = new RegExp( needle.toLowerCase() );
+	
+	// Used for counting summary
 	var rePoints = new RegExp( "\{(.*)\}" );
 	var reDoneList = new RegExp( "Done:" );
-	var reSprintList = new RegExp( "Sprint" );
 	var total = 0;
-	var complete = 0;
+	var complete = 0;	
 
 	$.each( lists, function( ix, list ) {
 		$.each( list.cards, function ( ix2, card ) {
 
 			if ( re.test( card.name.toLowerCase() ) ) {
 
-				var status = "amber";
-				if ( reDoneList.test( list.name ) ) {
-					status = "green";
-				} else if ( reSprintList.test( list.name ) ) {
-					status = "red";
-				}
-
-				writeCard( list.name, card.id, card.name, card.url, status );
+				writeCard( list.name, card.id, card.name, card.url, chooser.choose( list.name ) );
            
 	            var matches = rePoints.exec( card.name );
 	            if ( matches && matches.length > 0 ) {
@@ -101,3 +127,4 @@ function writeCard( listName, cardId, cardName, cardUrl, status ) {
     .text( 'link' )
     .appendTo('#' + cardId);
 };
+
