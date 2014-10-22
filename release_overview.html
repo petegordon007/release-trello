@@ -9,9 +9,9 @@
 	<div id="header">
 		<div id="title">Release overview - <span id="connectionstatus"></span></div>
 		<div id="form">
-			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {fetchReleaseStories( '51a7310f77b391ff2300077a', $('#targetrelease').val() );}"></input>
-			<button onclick="fetchReleaseStories( '51a7310f77b391ff2300077a', $('#targetrelease').val() );">GO</button>
-			<button onclick="fetchReleaseStories( ['527781efbe989817700147cf','51a7310f77b391ff2300077a', '5188fe5bc03a081a51007c26'], $('#targetrelease').val() );">All</button>
+			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {new BoardSearcher().fetchReleaseStories( '51a7310f77b391ff2300077a', $('#targetrelease').val() );}"></input>
+			<button onclick="new BoardSearcher().fetchReleaseStories( '51a7310f77b391ff2300077a', $('#targetrelease').val() );">GO</button>
+			<button onclick="new BoardSearcher().fetchReleaseStories( ['527781efbe989817700147cf','51a7310f77b391ff2300077a', '5188fe5bc03a081a51007c26'], $('#targetrelease').val() );">All</button>
 		</div>
 	</div>
 	<div id="summary"></div>

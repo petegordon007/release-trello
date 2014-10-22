@@ -18,6 +18,7 @@ function SummaryCollector() {
 	var reDoneList = new RegExp( "Done:" );
 	this.total = 0;
 	this.complete = 0;
+	this.cardList = [];
 
 	this.addCard = function( cardName, listName ) {
 		var matches = rePoints.exec( cardName );
@@ -33,7 +34,107 @@ function SummaryCollector() {
 		var percentageComplete = Math.floor( this.complete/this.total * 100 );
 		$("<div>").text("Total: " + this.total + " Complete: " + this.complete + " Percentage: " + percentageComplete + '%').appendTo( outputid );
 	};
+
+	this.addCardToList = function( listName, cardId, cardName, cardUrl, status ) {
+		this.cardList.push( { 
+			'listName' : listName,
+			'cardId' : cardId,
+			'cardName' : cardName,
+			'cardUrl' : cardUrl,
+			'status' : status
+		});
+	};
+
+	this.writeCard = function( outputId, listName, cardId, cardName, cardUrl, status ) {
+		$("<span>")
+		.attr({id: cardId})
+	    .addClass("card")
+	    .text( '[' + listName + '] : ' + cardName )
+	    .appendTo( outputId );
+
+		$("<span>")
+	    .addClass("rag")
+	    .addClass(status)
+	    .prependTo('#' + cardId);
+
+	    $("<a>")
+	    .addClass("link")
+	    .attr({href: cardUrl, target: "trello"})
+	    .text( 'link' )
+	    .appendTo('#' + cardId);
+	};
+
+	this.writeCards = function( outputId ) {
+		var me = this;
+		this.cardList.forEach( function( card ) {
+			me.writeCard( outputId, card.listName, card.cardId, card.cardName, card.cardUrl, card.status );
+		});
+	};
 };
+
+function BoardSearcher() {
+
+	var summary = new SummaryCollector();
+
+	this.fetchReleaseStories = function ( boards, tag ) {
+		this.clearView();
+		
+		if ( Array.isArray( boards ) ) {
+			for( var i = 0; i < boards.length; ++i ) {
+				var isLast = !!( i ===  (boards.length - 1) );
+				this.doTheWorkOfFetchingAndAdding( boards[i], tag, summary, isLast );
+			}
+		} else {
+			this.doTheWorkOfFetchingAndAdding( boards, tag, summary, true );
+		}
+	};
+
+	this.doTheWorkOfFetchingAndAdding = function( board, tag, summary, isLast ) {
+
+		var mySummary = summary;
+		var me = this;
+
+		var promise = new Promise( function( resolve, reject ) {
+			Trello.get("boards/" + board + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
+		});
+
+		if ( isLast ) {
+			promise.then( function( result ) {
+				me.findReleaseStories( result, tag, mySummary, me.writeCard );
+				mySummary.writeSummary('#summary');
+				mySummary.writeCards('#output');
+			});
+		} else {
+			promise.then( function( result ) {
+				me.findReleaseStories( result, tag, mySummary, me.writeCard );
+			});
+		}	
+	};
+
+	this.clearView =  function() {
+		$('#summary').empty();
+		$('#output').empty();
+	};
+
+	this.findReleaseStories = function( lists, needle, summary ) {
+
+		var chooser = new StatusChooser();
+
+		//Used for finding needle
+		needle = needle ? needle : ""; 
+		var re = new RegExp( needle.toLowerCase() );
+		
+		$.each( lists, function( ix, list ) {
+			$.each( list.cards, function ( ix2, card ) {
+				if ( re.test( card.name.toLowerCase() ) ) {
+	                summary.addCard( card.name, list.name );
+	                summary.addCardToList( list.name, card.id, card.name, card.url, chooser.choose( list.name ) );
+	            }
+			});
+	    });
+	};
+};
+
 
 $(document).ready(function(){
 	Trello.authorize({
@@ -55,81 +156,3 @@ $(document).ready(function(){
 	    $("#connectionstatus").text("Authorisation Failed");
 	}
 });
-
-function fetchReleaseStories( boards, tag ) {
-	clearView();
-	summary = new SummaryCollector();
-
-	if ( Array.isArray( boards ) ) {
-		for( var i = 0; i < boards.length; ++i ) {
-			var isLast = !!( i ===  (boards.length - 1) );
-			doTheWorkOfFetchingAndAdding( boards[i], tag, summary, isLast );
-		}
-	} else {
-		doTheWorkOfFetchingAndAdding( boards, tag, summary, true );
-	}
-
-};
-
-function doTheWorkOfFetchingAndAdding( board, tag, summary, isLast ) {
-	var promise = new Promise( function( resolve, reject ) {
-		Trello.get("boards/" + board + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
-	});
-
-	if ( isLast ) {
-		promise.then( function( result ) {
-			findReleaseStories( result, tag );
-			summary.writeSummary('#summary');
-		});
-	} else {
-		promise.then( function( result ) {
-			findReleaseStories( result, tag );
-		});
-	}	
-}
-
-function clearView() {
-	$('#summary').empty();
-	$('#output').empty();
-}
-
-function findReleaseStories( lists, needle ) {
-
-	var chooser = new StatusChooser();
-	// var summary = new SummaryCollector();
-
-	//Used for finding needle
-	needle = needle ? needle : ""; 
-	var re = new RegExp( needle.toLowerCase() );
-	
-	$.each( lists, function( ix, list ) {
-		$.each( list.cards, function ( ix2, card ) {
-			if ( re.test( card.name.toLowerCase() ) ) {
-				writeCard( list.name, card.id, card.name, card.url, chooser.choose( list.name ) );
-                summary.addCard( card.name, list.name );
-            }
-		});
-    });
-	
-	// summary.writeSummary( '#summary' );
-};
-
-function writeCard( listName, cardId, cardName, cardUrl, status ) {
-	$("<span>")
-	.attr({id: cardId})
-    .addClass("card")
-    .text( '[' + listName + '] : ' + cardName )
-    .appendTo('#output');
-
-	$("<span>")
-    .addClass("rag")
-    .addClass(status)
-    .prependTo('#' + cardId);
-
-    $("<a>")
-    .addClass("link")
-    .attr({href: cardUrl, target: "trello"})
-    .text( 'link' )
-    .appendTo('#' + cardId);
-};
-
