@@ -1,4 +1,3 @@
-var tag = "";
 function StatusChooser() {
 	var reDoneList = new RegExp( "Done:" );
 	var reSprintList = new RegExp( "Sprint" );
@@ -36,7 +35,6 @@ function SummaryCollector() {
 	};
 };
 
-
 $(document).ready(function(){
 	Trello.authorize({
 	    interactive: true,
@@ -59,27 +57,35 @@ $(document).ready(function(){
 });
 
 function fetchReleaseStories( boards, tag ) {
-	
 	clearView();
+	summary = new SummaryCollector();
 
 	if ( Array.isArray( boards ) ) {
-		$.each( boards, function( ix, board ) {
-			doTheWorkOfFetchingAndAdding( board, tag );
-		});
+		for( var i = 0; i < boards.length; ++i ) {
+			var isLast = !!( i ===  (boards.length - 1) );
+			doTheWorkOfFetchingAndAdding( boards[i], tag, summary, isLast );
+		}
 	} else {
-		doTheWorkOfFetchingAndAdding( boards, tag );
+		doTheWorkOfFetchingAndAdding( boards, tag, summary, true );
 	}
-}
 
-function doTheWorkOfFetchingAndAdding( board, tag ) {
-	this.tag = tag;
+};
+
+function doTheWorkOfFetchingAndAdding( board, tag, summary, isLast ) {
 	var promise = new Promise( function( resolve, reject ) {
 		Trello.get("boards/" + board + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
 	});
 
-	promise.then( function( result ) {
-		findReleaseStories( result, this.tag );
-	});
+	if ( isLast ) {
+		promise.then( function( result ) {
+			findReleaseStories( result, tag );
+			summary.writeSummary('#summary');
+		});
+	} else {
+		promise.then( function( result ) {
+			findReleaseStories( result, tag );
+		});
+	}	
 }
 
 function clearView() {
@@ -90,7 +96,7 @@ function clearView() {
 function findReleaseStories( lists, needle ) {
 
 	var chooser = new StatusChooser();
-	var summary = new SummaryCollector();
+	// var summary = new SummaryCollector();
 
 	//Used for finding needle
 	needle = needle ? needle : ""; 
@@ -105,7 +111,7 @@ function findReleaseStories( lists, needle ) {
 		});
     });
 	
-	summary.writeSummary( '#summary' );
+	// summary.writeSummary( '#summary' );
 };
 
 function writeCard( listName, cardId, cardName, cardUrl, status ) {

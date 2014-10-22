@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"wr",
+				"writeSummary"
+			],
+			[
+				"add",
+				"addCard"
+			],
+			[
 				"find",
 				"findReleaseStories"
 			],
@@ -80,7 +88,7 @@
 			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 3200,
+				"buffer_size": 3492,
 				"line_ending": "Windows"
 			}
 		},
@@ -96,7 +104,7 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 73.0,
+		"height": 490.0,
 		"selected_items":
 		[
 			[
@@ -148,7 +156,7 @@
 				"Package Control: List Packages"
 			]
 		],
-		"width": 549.0
+		"width": 571.0
 	},
 	"console":
 	{
@@ -328,6 +336,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"summary",
+			"addCard",
+			"writeSummary",
+			"SummaryCollector",
 			"StatusChooser",
 			"fetchReleaseStories",
 			"|",
@@ -451,11 +463,7 @@
 			"+",
 			"type",
 			"module",
-			"getSalesforceUrl",
-			"servlet.WebToCase",
-			"https://www.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8",
-			"hiddenCountry",
-			"00N80000003MDbe"
+			"getSalesforceUrl"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -557,15 +565,99 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3200,
+						"buffer_size": 3492,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1988,
-								1988
+								18,
+								25
+							],
+							[
+								374,
+								381
+							],
+							[
+								841,
+								848
+							],
+							[
+								1671,
+								1678
+							],
+							[
+								1685,
+								1692
+							],
+							[
+								1852,
+								1859
+							],
+							[
+								1927,
+								1934
+							],
+							[
+								1967,
+								1974
+							],
+							[
+								1980,
+								1987
+							],
+							[
+								1991,
+								1998
+							],
+							[
+								2063,
+								2070
+							],
+							[
+								2098,
+								2105
+							],
+							[
+								2108,
+								2115
+							],
+							[
+								2386,
+								2393
+							],
+							[
+								2433,
+								2440
+							],
+							[
+								2522,
+								2529
+							],
+							[
+								2579,
+								2586
+							],
+							[
+								2593,
+								2600
+							],
+							[
+								2958,
+								2965
+							],
+							[
+								3033,
+								3040
+							],
+							[
+								3046,
+								3053
+							],
+							[
+								3057,
+								3064
 							]
 						],
 						"settings":
@@ -574,7 +666,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1188.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -603,7 +695,7 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": -0.0,
+						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
