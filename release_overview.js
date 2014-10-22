@@ -14,6 +14,28 @@ function StatusChooser() {
 	};
 };
 
+function SummaryCollector() {
+	var rePoints = new RegExp( "\{(.*)\}" );
+	var reDoneList = new RegExp( "Done:" );
+	this.total = 0;
+	this.complete = 0;
+
+	this.addCard = function( cardName, listName ) {
+		var matches = rePoints.exec( cardName );
+        if ( matches && matches.length > 0 ) {
+        	if ( reDoneList.test( listName ) ) {
+        		this.complete += parseInt( matches[1] );
+        	}
+        	this.total += parseInt( matches[1] );
+        }     
+	};
+
+	this.writeSummary = function( outputid ) {
+		var percentageComplete = Math.floor( this.complete/this.total * 100 );
+		$("<div>").text("Total: " + this.total + " Complete: " + this.complete + " Percentage: " + percentageComplete + '%').appendTo( outputid );
+	};
+};
+
 
 $(document).ready(function(){
 	Trello.authorize({
@@ -28,9 +50,6 @@ $(document).ready(function(){
 	});	
 
 	function onAuthorizeSuccessful() {
-	    /* Trello.boards.get("51a7310f77b391ff2300077a",  function( board) {
-	    	console.log( board.name );
-	    }); */
 		$("#connectionstatus").text("Ready");
 	}
 
@@ -71,42 +90,22 @@ function clearView() {
 function findReleaseStories( lists, needle ) {
 
 	var chooser = new StatusChooser();
+	var summary = new SummaryCollector();
 
 	//Used for finding needle
 	needle = needle ? needle : ""; 
 	var re = new RegExp( needle.toLowerCase() );
 	
-	// Used for counting summary
-	var rePoints = new RegExp( "\{(.*)\}" );
-	var reDoneList = new RegExp( "Done:" );
-	var total = 0;
-	var complete = 0;	
-
 	$.each( lists, function( ix, list ) {
 		$.each( list.cards, function ( ix2, card ) {
-
 			if ( re.test( card.name.toLowerCase() ) ) {
-
 				writeCard( list.name, card.id, card.name, card.url, chooser.choose( list.name ) );
-           
-	            var matches = rePoints.exec( card.name );
-	            if ( matches && matches.length > 0 ) {
-	            	if ( reDoneList.test( list.name ) ) {
-	            		complete += parseInt( matches[1] );
-	            	}
-	            	total += parseInt( matches[1] );
-	            }     
+                summary.addCard( card.name, list.name );
             }
 		});
     });
 	
-	writeSummary( total, complete );
-};
-
-function writeSummary( total, complete ) {
-	$("<div>")
-	.text("Total: " + total + " Complete: " + complete + " Percentage: " + Math.floor( complete/total * 100 ) + '%')
-	.appendTo('#summary');
+	summary.writeSummary( '#summary' );
 };
 
 function writeCard( listName, cardId, cardName, cardUrl, status ) {

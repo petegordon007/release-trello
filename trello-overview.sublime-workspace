@@ -60,20 +60,28 @@
 	"buffers":
 	[
 		{
-			"file": "/C/Development/count_points.php",
+			"file": "Stories.txt",
 			"settings":
 			{
-				"buffer_size": 1266,
+				"buffer_size": 893,
+				"line_ending": "Windows",
+				"name": "Stories for Release overview report"
+			}
+		},
+		{
+			"file": "release_overview.html",
+			"settings":
+			{
+				"buffer_size": 973,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "Stories.txt",
+			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 725,
-				"line_ending": "Windows",
-				"name": "Stories for Release overview report"
+				"buffer_size": 3200,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -165,6 +173,7 @@
 	],
 	"file_history":
 	[
+		"/C/Development/count_points.php",
 		"/C/Development/php-trello/trello-overview/trello-overview.sublime-project",
 		"/C/Users/pgordon/Documents/transfer_license_sql.sql",
 		"/C/Users/pgordon/Documents/Demming.txt",
@@ -291,8 +300,7 @@
 		"/C/Development/VHES/src/redirectserver/src/lib/services/definitions/basicservicedefinition.php",
 		"/C/Development/VHES/build/properties/build-redirect-server.properties",
 		"/C/Development/VHES/src/redirectserver/src/lib/roundrobin.php",
-		"/C/Development/VHES/src/redirectserver/src/gen/consolemap.php",
-		"/C/Development/VHES/src/redirectserver/src/gen/consoles.php"
+		"/C/Development/VHES/src/redirectserver/src/gen/consolemap.php"
 	],
 	"find":
 	{
@@ -320,6 +328,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"StatusChooser",
+			"fetchReleaseStories",
 			"|",
 			"mav_policy",
 			"mav_policies",
@@ -445,9 +455,7 @@
 			"servlet.WebToCase",
 			"https://www.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8",
 			"hiddenCountry",
-			"00N80000003MDbe",
-			"clsSalesforce_Fields_Enum",
-			"submitHostedPage"
+			"00N80000003MDbe"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -487,47 +495,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "/C/Development/count_points.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1266,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								519,
-								543
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "Stories.txt",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 725,
+						"buffer_size": 893,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								443,
-								443
+								854,
+								830
 							]
 						],
 						"settings":
@@ -539,11 +519,69 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "release_overview.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 973,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								897,
+								897
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
+					"file": "release_overview.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3200,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1988,
+								1988
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1188.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
 					"file": "release_overview.css",
 					"semi_transient": false,
 					"settings":
@@ -565,11 +603,11 @@
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
-						"translation.x": 0.0,
+						"translation.x": -0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
 					"type": "text"
 				}
 			]
