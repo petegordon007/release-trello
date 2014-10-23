@@ -13,6 +13,13 @@ function StatusChooser() {
 	};
 };
 
+var BoardList = {
+	backlog : '527781efbe989817700147cf',
+	currentsprint : '51a7310f77b391ff2300077a',
+	completed : '5188fe5bc03a081a51007c26'
+};
+
+
 function SummaryCollector() {
 	var rePoints = new RegExp( "\{(.*)\}" );
 	var reDoneList = new RegExp( "Done:" );
@@ -76,9 +83,19 @@ function BoardSearcher() {
 
 	var summary = new SummaryCollector();
 
-	this.fetchReleaseStories = function ( boards, tag ) {
+
+	this.searchCurrentSprint = function( tag ) { 
 		this.clearView();
-		
+		// this.fetchReleaseStories( '51a7310f77b391ff2300077a', tag );
+		this.fetchReleaseStories( BoardList.currentsprint, tag );
+	};
+
+	this.searchAllSprints = function( tag ) {
+		this.clearView();
+		this.fetchReleaseStories( [BoardList.backlog, BoardList.current, BoardList.completed], tag );
+	};
+
+	this.fetchReleaseStories = function ( boards, tag ) {
 		if ( Array.isArray( boards ) ) {
 			for( var i = 0; i < boards.length; ++i ) {
 				var isLast = !!( i ===  (boards.length - 1) );

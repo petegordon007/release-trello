@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"w",
+				"writeCards"
+			],
+			[
+				"write",
+				"writeCard"
+			],
+			[
+				"wrte",
+				"writeSummary"
+			],
+			[
 				"wr",
 				"writeSummary"
 			],
@@ -80,7 +92,7 @@
 			"file": "release_overview.html",
 			"settings":
 			{
-				"buffer_size": 973,
+				"buffer_size": 1033,
 				"line_ending": "Windows"
 			}
 		},
@@ -88,7 +100,7 @@
 			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 3492,
+				"buffer_size": 4238,
 				"line_ending": "Windows"
 			}
 		},
@@ -336,6 +348,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"writeCards",
+			"SummaryCollector",
+			"writeCards",
+			"writeCard",
+			"addCardToList",
+			"writeCard",
+			"tag",
 			"summary",
 			"addCard",
 			"writeSummary",
@@ -456,14 +475,7 @@
 			"                   ",
 			"                     ",
 			"                      ",
-			"                       ",
-			"\\s*",
-			"|",
-			"-",
-			"+",
-			"type",
-			"module",
-			"getSalesforceUrl"
+			"                       "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -493,7 +505,7 @@
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
-		"wrap": false
+		"wrap": true
 	},
 	"groups":
 	[
@@ -514,8 +526,8 @@
 						"selection":
 						[
 							[
-								854,
-								830
+								789,
+								813
 							]
 						],
 						"settings":
@@ -536,15 +548,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 973,
+						"buffer_size": 1033,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								897,
-								897
+								548,
+								548
 							]
 						],
 						"settings":
@@ -565,99 +577,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3492,
+						"buffer_size": 4238,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								18,
-								25
-							],
-							[
-								374,
-								381
-							],
-							[
-								841,
-								848
-							],
-							[
-								1671,
-								1678
-							],
-							[
-								1685,
-								1692
-							],
-							[
-								1852,
-								1859
-							],
-							[
-								1927,
-								1934
-							],
-							[
-								1967,
-								1974
-							],
-							[
-								1980,
-								1987
-							],
-							[
-								1991,
-								1998
-							],
-							[
-								2063,
-								2070
-							],
-							[
-								2098,
-								2105
-							],
-							[
-								2108,
-								2115
-							],
-							[
-								2386,
-								2393
-							],
-							[
-								2433,
-								2440
-							],
-							[
-								2522,
-								2529
-							],
-							[
-								2579,
-								2586
-							],
-							[
-								2593,
-								2600
-							],
-							[
-								2958,
-								2965
-							],
-							[
-								3033,
-								3040
-							],
-							[
-								3046,
-								3053
-							],
-							[
-								3057,
-								3064
+								9,
+								22
 							]
 						],
 						"settings":
@@ -666,7 +594,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 153.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -707,7 +635,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 28.0
+		"height": 25.0
 	},
 	"input":
 	{
