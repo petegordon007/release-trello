@@ -9,7 +9,7 @@
 	<div id="header">
 		<div id="title">Release overview - <span id="connectionstatus"></span></div>
 		<div id="form">
-			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {new BoardSearcher().fetchReleaseStories( '51a7310f77b391ff2300077a', $('#targetrelease').val() );}"></input>
+			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {new BoardSearcher().searchCurrentSprint( $('#targetrelease').val() );}"></input>
 			<button onclick="new BoardSearcher().searchCurrentSprint( $('#targetrelease').val() );">Current</button>
 			<button onclick="new BoardSearcher().searchAllSprints( $('#targetrelease').val() );">All</button>
 		</div>

@@ -13,10 +13,32 @@ function StatusChooser() {
 	};
 };
 
+function CompletedStatusChooser() {
+	this.choose = function( listName ) {
+		return "green";	
+	};
+};
+
+function BacklogStatusChooser() {
+	this.choose = function( listName ) {
+		return "red";	
+	};
+};
+
+
 var BoardList = {
-	backlog : '527781efbe989817700147cf',
-	currentsprint : '51a7310f77b391ff2300077a',
-	completed : '5188fe5bc03a081a51007c26'
+	backlog : { 
+		id : '527781efbe989817700147cf',
+		chooser : new BacklogStatusChooser()
+	},
+	currentsprint : {
+		id : '51a7310f77b391ff2300077a',
+		chooser : new StatusChooser()
+	},
+	completed : {
+		id : '5188fe5bc03a081a51007c26',
+		chooser : new CompletedStatusChooser()
+	}
 };
 
 
@@ -73,6 +95,18 @@ function SummaryCollector() {
 
 	this.writeCards = function( outputId ) {
 		var me = this;
+		this.cardList.sort( function(a,b) {
+			if ( a.status === "red" ) {
+				return -1;
+			}
+
+			if ( a.status === "amber" && b.status === "green" ) {
+				return -1;
+			}
+
+			return 1;
+		});
+
 		this.cardList.forEach( function( card ) {
 			me.writeCard( outputId, card.listName, card.cardId, card.cardName, card.cardUrl, card.status );
 		});
@@ -86,13 +120,12 @@ function BoardSearcher() {
 
 	this.searchCurrentSprint = function( tag ) { 
 		this.clearView();
-		// this.fetchReleaseStories( '51a7310f77b391ff2300077a', tag );
 		this.fetchReleaseStories( BoardList.currentsprint, tag );
 	};
 
 	this.searchAllSprints = function( tag ) {
 		this.clearView();
-		this.fetchReleaseStories( [BoardList.backlog, BoardList.current, BoardList.completed], tag );
+		this.fetchReleaseStories( [BoardList.backlog, BoardList.currentsprint, BoardList.completed], tag );
 	};
 
 	this.fetchReleaseStories = function ( boards, tag ) {
@@ -112,18 +145,18 @@ function BoardSearcher() {
 		var me = this;
 
 		var promise = new Promise( function( resolve, reject ) {
-			Trello.get("boards/" + board + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
+			Trello.get("boards/" + board.id + "/lists", { fields : 'name', cards: 'open', card_fields : 'name,url' }, resolve, reject );
 		});
 
 		if ( isLast ) {
 			promise.then( function( result ) {
-				me.findReleaseStories( result, tag, mySummary, me.writeCard );
+				me.findReleaseStories( result, tag, mySummary, board.chooser );
 				mySummary.writeSummary('#summary');
 				mySummary.writeCards('#output');
 			});
 		} else {
 			promise.then( function( result ) {
-				me.findReleaseStories( result, tag, mySummary, me.writeCard );
+				me.findReleaseStories( result, tag, mySummary, board.chooser );
 			});
 		}	
 	};
@@ -133,10 +166,7 @@ function BoardSearcher() {
 		$('#output').empty();
 	};
 
-	this.findReleaseStories = function( lists, needle, summary ) {
-
-		var chooser = new StatusChooser();
-
+	this.findReleaseStories = function( lists, needle, summary, chooser ) {
 		//Used for finding needle
 		needle = needle ? needle : ""; 
 		var re = new RegExp( needle.toLowerCase() );

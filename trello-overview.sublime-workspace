@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"com",
+				"completed"
+			],
+			[
 				"w",
 				"writeCards"
 			],
@@ -92,7 +96,7 @@
 			"file": "release_overview.html",
 			"settings":
 			{
-				"buffer_size": 1033,
+				"buffer_size": 922,
 				"line_ending": "Windows"
 			}
 		},
@@ -100,7 +104,7 @@
 			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 4238,
+				"buffer_size": 4725,
 				"line_ending": "Windows"
 			}
 		},
@@ -348,6 +352,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"BoardList",
+			"current",
 			"writeCards",
 			"SummaryCollector",
 			"writeCards",
@@ -473,9 +479,7 @@
 			"iconv_",
 			"iconv",
 			"                   ",
-			"                     ",
-			"                      ",
-			"                       "
+			"                     "
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -548,15 +552,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1033,
+						"buffer_size": 922,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								548,
-								548
+								829,
+								829
 							]
 						],
 						"settings":
@@ -577,15 +581,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4238,
+						"buffer_size": 4725,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9,
-								22
+								2362,
+								2371
 							]
 						],
 						"settings":
@@ -594,7 +598,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 153.0,
+						"translation.y": 1061.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
