@@ -25,7 +25,6 @@ function BacklogStatusChooser() {
 	};
 };
 
-
 var BoardList = {
 	backlog : { 
 		id : '527781efbe989817700147cf',
@@ -49,14 +48,14 @@ function SummaryCollector() {
 	this.complete = 0;
 	this.cardList = [];
 
-	this.addCard = function( cardName, listName ) {
+	this.countCardPoints = function( cardName, status ) {
 		var matches = rePoints.exec( cardName );
         if ( matches && matches.length > 0 ) {
-        	if ( reDoneList.test( listName ) ) {
+        	if ( status == "green" ) {
         		this.complete += parseInt( matches[1] );
         	}
         	this.total += parseInt( matches[1] );
-        }     
+        }
 	};
 
 	this.writeSummary = function( outputid ) {
@@ -72,6 +71,8 @@ function SummaryCollector() {
 			'cardUrl' : cardUrl,
 			'status' : status
 		});
+
+		this.countCardPoints( cardName, status );
 	};
 
 	this.writeCard = function( outputId, listName, cardId, cardName, cardUrl, status ) {
@@ -111,12 +112,35 @@ function SummaryCollector() {
 			me.writeCard( outputId, card.listName, card.cardId, card.cardName, card.cardUrl, card.status );
 		});
 	};
+
+	this.drawPieChart = function( outputId ) {
+
+		var data = [['Todo', this.total - this.complete],['Done', this.complete]];
+
+		var plot1 = jQuery.jqplot ( outputId, [data], 
+		{ 
+		  seriesColors: [ "#FF0000", "#00FF00" ],
+		  seriesDefaults: {
+		    // Make this a pie chart.
+		    renderer: jQuery.jqplot.PieRenderer, 
+		    rendererOptions: {
+		      // Put data labels on the pie slices.
+		      // By default, labels show the percentage of the slice.
+		      showDataLabels: true
+		    }
+		  }, 
+		  legend: { show:true, location: 'e' }
+		});
+	};
 };
 
 function BoardSearcher() {
 
-	var summary = new SummaryCollector();
+	this.summary = new SummaryCollector();
 
+	this.setSummary = function( summary ) {
+		this.summary = summary;
+	};
 
 	this.searchCurrentSprint = function( tag ) { 
 		this.clearView();
@@ -132,10 +156,10 @@ function BoardSearcher() {
 		if ( Array.isArray( boards ) ) {
 			for( var i = 0; i < boards.length; ++i ) {
 				var isLast = !!( i ===  (boards.length - 1) );
-				this.doTheWorkOfFetchingAndAdding( boards[i], tag, summary, isLast );
+				this.doTheWorkOfFetchingAndAdding( boards[i], tag, this.summary, isLast );
 			}
 		} else {
-			this.doTheWorkOfFetchingAndAdding( boards, tag, summary, true );
+			this.doTheWorkOfFetchingAndAdding( boards, tag, this.summary, true );
 		}
 	};
 
@@ -152,6 +176,7 @@ function BoardSearcher() {
 			promise.then( function( result ) {
 				me.findReleaseStories( result, tag, mySummary, board.chooser );
 				mySummary.writeSummary('#summary');
+				mySummary.drawPieChart('chartdiv');
 				mySummary.writeCards('#output');
 			});
 		} else {
@@ -174,12 +199,49 @@ function BoardSearcher() {
 		$.each( lists, function( ix, list ) {
 			$.each( list.cards, function ( ix2, card ) {
 				if ( re.test( card.name.toLowerCase() ) ) {
-	                summary.addCard( card.name, list.name );
 	                summary.addCardToList( list.name, card.id, card.name, card.url, chooser.choose( list.name ) );
 	            }
 			});
 	    });
 	};
+};
+
+function TagFinder() {
+
+	this.findTagsOnBoard = function() {
+		var searcher = new BoardSearcher();
+		searcher.setSummary( new TagSummary() );
+	
+		searcher.fetchReleaseStories( [BoardList.backlog, BoardList.currentsprint, BoardList.completed], '' );
+	};
+};
+
+function TagSummary() {
+	var reTag = /#[\w-]+/g;
+	this.tags = {};
+
+	this.writeSummary = function() {};
+	this.drawPieChart = function() {};
+	this.writeCards = function() {};
+
+	this.addCardToList = function( listName, cardId, cardName, cardUrl, status ) {
+
+		var matches = cardName.match( reTag );
+		var myTags = this.tags;
+  
+        if ( matches && matches.length > 0 ) {
+        	$.each( matches, function( idx, match ) {
+        		var tag = match.substring(1).toLowerCase();
+
+        		if ( myTags.hasOwnProperty( tag ) ) { 
+        			return true;
+        		}
+
+				$('#taglist').append( $('<option></option>').val( match ).html( tag ) );
+				myTags[tag] = "Found";
+			});
+        }
+    }
 };
 
 
@@ -197,6 +259,11 @@ $(document).ready(function(){
 
 	function onAuthorizeSuccessful() {
 		$("#connectionstatus").text("Ready");
+
+		$('#taglist').append( $('<option></option>').val( '' ).html( 'All' ) );
+
+		var tagFinder = new TagFinder();
+		tagFinder.findTagsOnBoard();
 	}
 
 	function onFailedAuthorization() {

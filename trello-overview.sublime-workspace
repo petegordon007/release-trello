@@ -5,7 +5,7 @@
 		[
 			[
 				"com",
-				"completed"
+				"CompletedStatusChooser"
 			],
 			[
 				"w",
@@ -96,7 +96,7 @@
 			"file": "release_overview.html",
 			"settings":
 			{
-				"buffer_size": 922,
+				"buffer_size": 1344,
 				"line_ending": "Windows"
 			}
 		},
@@ -104,7 +104,7 @@
 			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 4725,
+				"buffer_size": 5747,
 				"line_ending": "Windows"
 			}
 		},
@@ -197,6 +197,9 @@
 	],
 	"file_history":
 	[
+		"/C/Development/php-trello/trello-overview/dist/jqPlotOptions.txt",
+		"/C/Development/gfi-salesforce/SalesForce API/Juliet.sln",
+		"/C/Development/gfi-salesforce/SalesForce API/Juliet/Juliet.csproj",
 		"/C/Development/count_points.php",
 		"/C/Development/php-trello/trello-overview/trello-overview.sublime-project",
 		"/C/Users/pgordon/Documents/transfer_license_sql.sql",
@@ -321,10 +324,7 @@
 		"/C/Development/VHES/src/redirectserver/src/endpoint.php",
 		"/C/Development/VHES/src/redirectserver/src/lib/roundrobinfactory.php",
 		"/C/Development/VHES/src/redirectserver/test/lib/testroundrobinfactory.php",
-		"/C/Development/VHES/src/redirectserver/src/lib/services/definitions/basicservicedefinition.php",
-		"/C/Development/VHES/build/properties/build-redirect-server.properties",
-		"/C/Development/VHES/src/redirectserver/src/lib/roundrobin.php",
-		"/C/Development/VHES/src/redirectserver/src/gen/consolemap.php"
+		"/C/Development/VHES/src/redirectserver/src/lib/services/definitions/basicservicedefinition.php"
 	],
 	"find":
 	{
@@ -352,6 +352,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"drawPieChart",
+			"writeCards",
+			"addCardToList",
+			"addCard",
+			"Choose",
+			"choose",
 			"BoardList",
 			"current",
 			"writeCards",
@@ -473,13 +479,7 @@
 			"Action=heartbeat",
 			"heart",
 			"login_strategy",
-			"validator",
-			"gzip",
-			"zip",
-			"iconv_",
-			"iconv",
-			"                   ",
-			"                     "
+			"validator"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -514,7 +514,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -552,15 +552,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 922,
+						"buffer_size": 1344,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								829,
-								829
+								1344,
+								1344
 							]
 						],
 						"settings":
@@ -572,7 +572,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -581,15 +581,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4725,
+						"buffer_size": 5747,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2362,
-								2371
+								2923,
+								2923
 							]
 						],
 						"settings":
@@ -598,10 +598,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1061.0,
+						"translation.y": 1525.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{

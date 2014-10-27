@@ -1,19 +1,39 @@
 <head>
-  	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+	<script language="javascript" type="text/javascript" src="jquery.jqplot.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="jquery.jqplot.min.css" />
+	<script class="include" language="javascript" type="text/javascript" src="jqplot.pieRenderer.min.js"></script>
+
 	<script src="https://api.trello.com/1/client.js?key=7c7520b9a957776f310aced2c357c578"></script>
 	<script src="release_overview.js"></script>
 	<link rel="stylesheet" type="text/css" href="release_overview.css">
+
+	<script>
+		function readSearchValue() {
+			if( $('#taglist').val() === "" ) {
+				return $.empty( $('#targetrelease').val() );
+			} else {
+				return $('#taglist').val();
+			}
+		};
+	</script>
+
 </head>
 
 <body>
 	<div id="header">
 		<div id="title">Release overview - <span id="connectionstatus"></span></div>
 		<div id="form">
-			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {new BoardSearcher().searchCurrentSprint( $('#targetrelease').val() );}"></input>
-			<button onclick="new BoardSearcher().searchCurrentSprint( $('#targetrelease').val() );">Current</button>
-			<button onclick="new BoardSearcher().searchAllSprints( $('#targetrelease').val() );">All</button>
+			<select id="taglist" />
+			<label>Release: </label></label><input type="text" id="targetrelease" onkeypress="if(event.keyCode==13) {new BoardSearcher().searchCurrentSprint( readSearchValue() );}"></input>
+			<button onclick="new BoardSearcher().searchCurrentSprint( readSearchValue() );">Current</button>
+			<button onclick="new BoardSearcher().searchAllSprints( readSearchValue() );">All</button>
 		</div>
 	</div>
+	<div id="chartdiv" style="height:200px;width:300px; "></div> 
 	<div id="summary"></div>
 	<div id="output"></div>
 </body>
