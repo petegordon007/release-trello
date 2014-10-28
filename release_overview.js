@@ -76,12 +76,34 @@ function SummaryCollector() {
 	};
 
 	this.writeCard = function( outputId, listName, cardId, cardName, cardUrl, status ) {
+
+		var splitName = this.splitCardName( cardName );
+
 		$("<span>")
 		.attr({id: cardId})
 	    .addClass("card")
-	    .text( '[' + listName + '] : ' + cardName )
 	    .appendTo( outputId );
 
+		$("<span>")
+	    .addClass("cardname")
+	    .text( splitName.name )
+	    .prependTo('#' + cardId);
+
+		$("<span>")
+	    .addClass("cardtags")
+	    .text( splitName.tags.join( ' ' ) )
+	    .appendTo('#' + cardId);
+
+		$("<span>")
+	    .addClass("cardpoints")
+	    .text( splitName.points )
+	    .prependTo('#' + cardId);
+
+	    $("<span>")
+	    .addClass("listname")
+	    .text( listName )
+	    .prependTo('#' + cardId);
+ 
 		$("<span>")
 	    .addClass("rag")
 	    .addClass(status)
@@ -92,6 +114,40 @@ function SummaryCollector() {
 	    .attr({href: cardUrl, target: "trello"})
 	    .text( 'link' )
 	    .appendTo('#' + cardId);
+	};
+
+	this.splitCardName = function( cardName ) {
+
+		var reTag = /#[\w-]+/g;
+
+		var splitName = {
+			points : '',
+			tags : [],
+			name : ''
+		};
+
+		var myCardName = cardName;
+
+		var matches = rePoints.exec( cardName );
+ 		if ( matches && matches.length > 0 ) {
+ 			splitName.points = matches[1];
+ 			myCardName = myCardName.replace( matches[0], '' );
+ 		} else {
+ 			splitName.points = "TBE";
+ 		}
+
+		var tags = cardName.match( reTag );
+ 		if ( tags && tags.length > 0 ) {
+ 			for( var i = 0; i < tags.length; i++ ) {
+ 				splitName.tags.push( tags[i].substring(1) );
+ 				myCardName = myCardName.replace( tags[i], '' );
+ 			}
+ 		}
+		
+ 		splitName.name = myCardName;
+
+		return splitName;
+
 	};
 
 	this.writeCards = function( outputId ) {
@@ -129,7 +185,8 @@ function SummaryCollector() {
 		      showDataLabels: true
 		    }
 		  }, 
-		  legend: { show:true, location: 'e' }
+		  legend: { show:true, location: 'e' },
+		  grid: { shadow: false, background:'#FFFFFF', borderWidth: 0 }
 		});
 	};
 };

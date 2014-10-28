@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"to",
+				"toLowerCase"
+			],
+			[
 				"com",
 				"CompletedStatusChooser"
 			],
@@ -87,7 +91,7 @@
 			"file": "Stories.txt",
 			"settings":
 			{
-				"buffer_size": 893,
+				"buffer_size": 1145,
 				"line_ending": "Windows",
 				"name": "Stories for Release overview report"
 			}
@@ -96,7 +100,7 @@
 			"file": "release_overview.html",
 			"settings":
 			{
-				"buffer_size": 1344,
+				"buffer_size": 1542,
 				"line_ending": "Windows"
 			}
 		},
@@ -104,7 +108,7 @@
 			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 5747,
+				"buffer_size": 6923,
 				"line_ending": "Windows"
 			}
 		},
@@ -514,7 +518,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -523,15 +527,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 893,
+						"buffer_size": 1145,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								789,
-								813
+								1145,
+								1145
 							]
 						],
 						"settings":
@@ -543,7 +547,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -552,15 +556,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1344,
+						"buffer_size": 1542,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1344,
-								1344
+								848,
+								848
 							]
 						],
 						"settings":
@@ -572,7 +576,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -581,15 +585,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5747,
+						"buffer_size": 6923,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2923,
-								2923
+								6751,
+								6751
 							]
 						],
 						"settings":
@@ -598,10 +602,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1525.0,
+						"translation.y": 2812.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{

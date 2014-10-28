@@ -13,10 +13,10 @@
 
 	<script>
 		function readSearchValue() {
-			if( $('#taglist').val() === "" ) {
-				return $.empty( $('#targetrelease').val() );
-			} else {
+			if( $('#targetrelease').val() === "" ) {
 				return $('#taglist').val();
+			} else {
+				$('#targetrelease').val();
 			}
 		};
 	</script>

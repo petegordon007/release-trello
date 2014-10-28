@@ -8,15 +8,16 @@ Stories for Release overview report
 [DONE] Colour the cards and style them to be clearer to see what they are
 [DONE] Colour the cards RAG
 [DONE] Make the project a sublime project
-[Done] Add a dropdown of possible #tags to filter by
-[Done] Allow selection of more than one board
+[DONE] Add a dropdown of possible #tags to filter by
+[DONE] Allow selection of more than one board
+[DONE] Make the story points more obvious in the story names
+[DONE] Highlight cards that don't have an estimate
 
-Sort the #tag list
-Make the story points more obvious in the story names
-Cache cards as they don't need updated every call
 Use historical velocity to show the predicted end date (EPIC)
+Sort the #tag list
+Cache cards as they don't need updated every call
 Calculate total and done total by task hours and show percentage done
-Count the cards that don't have an estimate and highlight them
+Count the cards that don't have an estimate
 Provide a way to update the estimates from the tool
 Make the totals a summary like the pie
 Add a CFD diagram (EPIC)

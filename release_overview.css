@@ -31,18 +31,6 @@ body {
     display:block;
 }
 
-.card {
-    background:#E6E6E6;
-    border:1px solid darkgrey;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    padding: 5px 5px 5px 0px;
-    margin-top:2px;
-    margin-bottom:2px;
-    display:block;
-}
-
 .rag {
     margin:5px;
     padding:6px;
@@ -65,4 +53,43 @@ body {
 
 .link { 
     padding-left: 5px;
+}
+
+.listname {
+    float:right;
+    font-style: italic;
+    margin-right:20px;
+    color:grey;
+}
+
+.card {
+    background:white;
+    border:1px solid darkgrey;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    padding: 5px 5px 5px 0px;
+    margin-top:2px;
+    margin-bottom:2px;
+    display:block;
+}
+
+.cardname {
+    padding-left: 15px;
+}
+
+.cardtags {
+    float:right;
+    margin-right:5px;
+    color:black;
+    background:darkgrey;
+    border: 3px solid darkgrey;
+    border-radius:10px;
+}
+
+.cardpoints {
+    color:white;
+    background:blue;
+    border: 3px solid blue;
+    border-radius:10px;
 }
