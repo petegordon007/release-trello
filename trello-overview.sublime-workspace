@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"pad",
+				"padding-left"
+			],
+			[
+				"spl",
+				"splitCardName"
+			],
+			[
+				"border",
+				"border-radius"
+			],
+			[
 				"to",
 				"toLowerCase"
 			],
@@ -91,7 +103,7 @@
 			"file": "Stories.txt",
 			"settings":
 			{
-				"buffer_size": 1145,
+				"buffer_size": 1267,
 				"line_ending": "Windows",
 				"name": "Stories for Release overview report"
 			}
@@ -100,7 +112,7 @@
 			"file": "release_overview.html",
 			"settings":
 			{
-				"buffer_size": 1542,
+				"buffer_size": 1530,
 				"line_ending": "Windows"
 			}
 		},
@@ -108,7 +120,7 @@
 			"file": "release_overview.js",
 			"settings":
 			{
-				"buffer_size": 6923,
+				"buffer_size": 8104,
 				"line_ending": "Windows"
 			}
 		},
@@ -116,7 +128,7 @@
 			"file": "release_overview.css",
 			"settings":
 			{
-				"buffer_size": 859,
+				"buffer_size": 1250,
 				"line_ending": "Windows"
 			}
 		}
@@ -356,6 +368,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"reTag",
 			"drawPieChart",
 			"writeCards",
 			"addCardToList",
@@ -482,8 +495,7 @@
 			"service",
 			"Action=heartbeat",
 			"heart",
-			"login_strategy",
-			"validator"
+			"login_strategy"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -527,15 +539,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1145,
+						"buffer_size": 1267,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1145,
-								1145
+								743,
+								743
 							]
 						],
 						"settings":
@@ -556,15 +568,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1542,
+						"buffer_size": 1530,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								848,
-								848
+								846,
+								846
 							]
 						],
 						"settings":
@@ -576,7 +588,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -585,15 +597,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6923,
+						"buffer_size": 8104,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6751,
-								6751
+								3114,
+								3114
 							]
 						],
 						"settings":
@@ -602,7 +614,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2812.0,
+						"translation.y": 1887.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -614,15 +626,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 859,
+						"buffer_size": 1250,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								67,
-								67
+								805,
+								805
 							]
 						],
 						"settings":
@@ -632,10 +644,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 896.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

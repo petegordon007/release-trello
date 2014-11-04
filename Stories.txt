@@ -22,6 +22,8 @@ Provide a way to update the estimates from the tool
 Make the totals a summary like the pie
 Add a CFD diagram (EPIC)
 Add a historical velocity report (EPIC)
+Create a parking lot report from trello (EPIC)
+Create a roadmap from trello (EPIC)
 
 Completed work	5188fe5bc03a081a51007c26
 Release Backlog	527781efbe989817700147cf
