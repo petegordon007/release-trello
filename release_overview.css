@@ -89,7 +89,7 @@ body {
 
 .cardpoints {
     color:white;
-    background:#4D94FF;
+    background: red;
     border: 3px solid #4D94FF;
     border-radius:10px;
 }
